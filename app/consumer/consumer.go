@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	BOOKING_STATUS_CG = "momo-q1c28"
+	BOOKING_STATUS_CG    = "momo-q1c28"
 	BOOKING_STATUS_TOPIC = ""
 )
 
@@ -44,7 +44,6 @@ func (consumer *roomBookingKafkaConsumer) init() error {
 	return nil
 }
 
-
 //for循环消费
 func (consumer *roomBookingKafkaConsumer) consume(ctx context.Context) {
 ConsumeMessage:
@@ -57,7 +56,7 @@ ConsumeMessage:
 			break ConsumeMessage
 		case msg := <-consumer.consumerGroup.Messages():
 
-			//processMsg(ctx, msg.Value)
+			consumer.ProcessMsg(ctx, string(msg.Value))
 
 			//commit after process, confirm at least once
 			err := consumer.consumerGroup.CommitUpto(msg)
@@ -66,6 +65,10 @@ ConsumeMessage:
 			}
 		}
 	}
+}
+
+func (c *roomBookingKafkaConsumer) ProcessMsg(ctx context.Context, msg string) {
+	println(msg)
 }
 
 //消费activation-affiliate topic, 入库
