@@ -25,20 +25,18 @@ type HttpClient struct {
 
 const (
 	DEFAULT_USER_AGENT     = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36"
-	DEFAULT_RETRY_TIMES    = 3
-	DEFAULT_RETRY_INTERVAL = time.Second
 )
 
-func NewDefaultHttpClient() HttpClient {
-	return NewHttpClient(DEFAULT_RETRY_TIMES, DEFAULT_RETRY_INTERVAL)
-}
-
-func NewHttpClient(retryTimes int, retryInterval time.Duration) HttpClient {
+func NewHttpClient(retryTimes int, retryInterval, timeout time.Duration) HttpClient {
 	jar, _ := cookiejar.New(nil)
 	return HttpClient{
-		Header:     make(http.Header),
-		Client:     &http.Client{Jar: jar},
-		RetryTimes: retryTimes,
+		Header: make(http.Header),
+		Client: &http.Client{
+			Jar:     jar,
+			Timeout: timeout,
+		},
+		RetryTimes:    retryTimes,
+		RetryInterval: retryInterval,
 	}
 }
 
