@@ -67,8 +67,13 @@ ConsumeMessage:
 	}
 }
 
+// 用 channel
+var KafkaChan = make(chan string)
+
 func (c *roomBookingKafkaConsumer) ProcessMsg(ctx context.Context, msg string) {
 	println(msg)
+	roomId := string(msg)
+	KafkaChan <- roomId
 }
 
 //消费activation-affiliate topic, 入库
