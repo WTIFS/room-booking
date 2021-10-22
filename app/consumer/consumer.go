@@ -11,7 +11,7 @@ import (
 
 const (
 	BOOKING_STATUS_CG    = "momo-q1c28"
-	BOOKING_STATUS_TOPIC = ""
+	BOOKING_STATUS_TOPIC = "meeting_status_channel"
 )
 
 var (
