@@ -1,5 +1,14 @@
 package main
 
+import (
+	"github.com/wtifs/room-booking/app/consumer"
+)
+
 func main() {
-	println("oh")
+
+	c := make(chan bool)
+
+	go consumer.RunConsumer()
+
+	c <- true
 }
