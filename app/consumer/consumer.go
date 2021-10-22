@@ -69,7 +69,7 @@ ConsumeMessage:
 }
 
 //消费activation-affiliate topic, 入库
-func RunConsumer() {
+func RunBookingStatusConsumer() {
 	defer recovery.Recovery("run consumer")
 
 	kafkaConsumer := &roomBookingKafkaConsumer{}
